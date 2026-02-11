@@ -1,0 +1,1646 @@
+<!DOCTYPE html>
+<html lang="pt" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="KADITECH SOLUTION SUL — Soluções técnicas integradas: TI, engenharia, segurança e consultoria empresarial em Moçambique. Parceiros estratégicos para empresas modernas.">
+<meta name="theme-color" content="#08090c">
+<link rel="canonical" href="https://kaditech.mz/">
+<title>KADITECH SOLUTION SUL, LDA — Soluções Técnicas Integradas</title>
+
+<!-- Preconnect -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+<!-- Poppins (original font) -->
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<!-- Font Awesome 6 -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+
+<!-- GSAP (defer) -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
+
+<style>
+/* ═══════════════════════════════════════════════════════════
+   DESIGN TOKENS
+   ═══════════════════════════════════════════════════════════ */
+:root {
+  /* Superfícies */
+  --bg-base:       #08090c;
+  --bg-elevated:   #0f1117;
+  --bg-card:       #141720;
+  --bg-card-hover: #1a1f2e;
+  --bg-light:      #F0ECE4;
+
+  /* Texto */
+  --txt-primary:   #F0ECE4;
+  --txt-secondary: rgba(240,236,228,.55);
+  --txt-dark:      #1a1a1a;
+
+  /* Kaditech Brand Identity */
+  --blue-primary:  #1E88E5;
+  --blue-dark:     #1976D2;
+  --green-primary: #2ECC71;
+  --green-dark:    #27AE60;
+  
+  /* Main accent (blue as primary) */
+  --accent:        #1E88E5;
+  --accent-dim:    rgba(30,136,229,.18);
+  --accent-glow:   rgba(30,136,229,.30);
+  --accent-hover:  #1976D2;
+  
+  /* Secondary accent (green) */
+  --accent-green:      #2ECC71;
+  --accent-green-dim:  rgba(46,204,113,.18);
+  --accent-green-hover:#27AE60;
+
+  /* Bordas */
+  --border:        rgba(255,255,255,.06);
+  --border-hover:  rgba(30,136,229,.4);
+
+  /* Glass */
+  --glass-bg:      rgba(255,255,255,.035);
+  --glass-border:  rgba(255,255,255,.08);
+
+  /* Tipografia */
+  --font-display: 'Poppins', sans-serif;
+  --font-body:    'Poppins', sans-serif;
+
+  /* Espaçamento (escala 8px) */
+  --sp-1:  8px;
+  --sp-2: 16px;
+  --sp-3: 24px;
+  --sp-4: 32px;
+  --sp-5: 48px;
+  --sp-6: 64px;
+  --sp-7: 96px;
+  --sp-8:120px;
+  --sp-9:160px;
+
+  /* Raios */
+  --r-sm:  8px;
+  --r-md: 14px;
+  --r-lg: 22px;
+  --r-xl: 32px;
+  --r-pill: 999px;
+
+  /* Sombras */
+  --shadow-sm:   0  2px  8px rgba(0,0,0,.2);
+  --shadow-md:   0  6px 24px rgba(0,0,0,.25);
+  --shadow-lg:   0 16px 48px rgba(0,0,0,.3);
+  --shadow-glow: 0  0  36px var(--accent-glow);
+
+  /* Easing */
+  --ease:      cubic-bezier(.22,1,.36,1);
+  --dur-fast:  .22s;
+  --dur-mid:   .4s;
+  --dur-slow:  .7s;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESET
+   ═══════════════════════════════════════════════════════════ */
+*,*::before,*::after { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior:smooth; font-size:16px; }
+body {
+  font-family: var(--font-body);
+  background: var(--bg-base);
+  color: var(--txt-primary);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.65;
+}
+a { text-decoration:none; color:inherit; }
+img { display:block; max-width:100%; }
+ul { list-style:none; }
+button { font-family: var(--font-body); }
+
+/* Focus */
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration:.01ms !important; transition-duration:.01ms !important; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TIPOGRAFIA
+   ═══════════════════════════════════════════════════════════ */
+h1,h2,h3,h4,h5 { font-family:var(--font-display); line-height:1.08; }
+h1 { font-size:clamp(54px,8vw,110px); font-weight:800; letter-spacing:-.035em; }
+h2 { font-size:clamp(34px,4.8vw,64px); font-weight:700; letter-spacing:-.025em; }
+h3 { font-size:clamp(22px,3vw,36px); font-weight:600; letter-spacing:-.01em; }
+h4 { font-size:clamp(16px,2vw,20px); font-weight:600; }
+p  { font-size:clamp(15px,1.7vw,17px); color:var(--txt-secondary); max-width:620px; }
+
+/* ═══════════════════════════════════════════════════════════
+   COMPONENTES REUTILIZÁVEIS
+   ═══════════════════════════════════════════════════════════ */
+
+/* --- Badge / etiqueta --- */
+.badge {
+  display:inline-flex; align-items:center; gap:8px;
+  background:var(--accent-green-dim);
+  color:var(--accent-green);
+  padding:6px 16px;
+  border-radius:var(--r-pill);
+  font-size:11.5px; font-weight:600;
+  letter-spacing:.1em; text-transform:uppercase;
+  margin-bottom:var(--sp-3);
+}
+.badge::before {
+  content:''; width:6px; height:6px;
+  background:var(--accent-green); border-radius:50%;
+  animation:pulse 2.2s ease infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.75)} }
+
+/* --- Botão primário --- */
+.btn {
+  display:inline-flex; align-items:center; gap:10px;
+  background:var(--accent); color:#fff;
+  padding:16px 38px;
+  border:none; border-radius:var(--r-pill);
+  font-family:var(--font-display); font-weight:600; font-size:15px;
+  cursor:pointer; position:relative; overflow:hidden;
+  transition: background var(--dur-fast) var(--ease),
+              transform   var(--dur-fast) var(--ease),
+              box-shadow  var(--dur-mid)  var(--ease);
+}
+.btn::before {
+  content:''; position:absolute; inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,.22),transparent 55%);
+  opacity:0; transition:opacity var(--dur-mid);
+}
+.btn:hover { background:var(--accent-hover); transform:translateY(-2px); box-shadow:var(--shadow-glow); }
+.btn:hover::before { opacity:1; }
+.btn:active { transform:translateY(0); }
+.btn i { transition:transform var(--dur-fast) var(--ease); }
+.btn:hover i { transform:translateX(4px); }
+
+/* --- Botão ghost --- */
+.btn-ghost {
+  display:inline-flex; align-items:center; gap:8px;
+  background:transparent; color:var(--txt-primary);
+  padding:14px 30px;
+  border:1.5px solid var(--border); border-radius:var(--r-pill);
+  font-family:var(--font-display); font-weight:500; font-size:14px;
+  cursor:pointer;
+  transition: border-color var(--dur-fast),
+              color        var(--dur-fast),
+              transform    var(--dur-fast);
+}
+.btn-ghost:hover { border-color:var(--accent); color:var(--accent); transform:translateY(-2px); }
+
+/* --- Reveal (GSAP target) --- */
+.reveal { opacity:0; transform:translateY(50px); will-change:transform,opacity; }
+
+/* ═══════════════════════════════════════════════════════════
+   HEADER
+   ═══════════════════════════════════════════════════════════ */
+header {
+  position:fixed; top:0; left:0; width:100%;
+  z-index:1000;
+  padding:22px var(--sp-8);
+  display:flex; align-items:center; justify-content:space-between;
+  transition: padding    var(--dur-mid) var(--ease),
+              background var(--dur-mid) var(--ease),
+              box-shadow var(--dur-mid) var(--ease);
+}
+header.scrolled {
+  padding:12px var(--sp-8);
+  background:rgba(8,9,12,.88);
+  backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+  box-shadow:0 1px 0 var(--border);
+}
+
+/* Logo */
+.logo {
+  font-family:var(--font-display);
+  font-weight:800; font-size:21px;
+  letter-spacing:3px; color:var(--txt-primary);
+  text-decoration:none;
+}
+.logo span { color:var(--accent); }
+
+/* Desktop nav */
+nav.desktop-nav {
+  display:flex; align-items:center; gap:36px;
+}
+nav.desktop-nav a {
+  font-size:13.5px; font-weight:500;
+  color:var(--txt-secondary);
+  position:relative; padding:6px 0;
+  transition:color var(--dur-fast);
+}
+nav.desktop-nav a::after {
+  content:''; position:absolute;
+  bottom:0; left:0; width:0; height:2px;
+  background:var(--accent); border-radius:2px;
+  transition:width var(--dur-mid) var(--ease);
+}
+nav.desktop-nav a:hover,
+nav.desktop-nav a.active { color:var(--txt-primary); }
+nav.desktop-nav a:hover::after,
+nav.desktop-nav a.active::after { width:100%; }
+
+/* CTA nav */
+.nav-cta {
+  background:var(--accent); color:#fff;
+  padding:10px 24px; border-radius:var(--r-pill);
+  font-family:var(--font-display); font-weight:600; font-size:13px;
+  transition:background var(--dur-fast), transform var(--dur-fast);
+}
+.nav-cta:hover { background:var(--accent-hover); transform:translateY(-1px); }
+
+/* Hamburger */
+.hamburger {
+  display:none; flex-direction:column; justify-content:center; align-items:center;
+  width:46px; height:46px; background:none; border:none; cursor:pointer; gap:5px;
+}
+.hamburger span {
+  display:block; width:24px; height:2px;
+  background:var(--txt-primary); border-radius:2px;
+  transition:transform var(--dur-mid) var(--ease), opacity var(--dur-fast);
+}
+
+/* Mobile overlay */
+.mobile-nav {
+  position:fixed; inset:0;
+  background:rgba(8,9,12,.97); backdrop-filter:blur(20px);
+  z-index:999;
+  display:flex; flex-direction:column; align-items:center; justify-content:center; gap:28px;
+  opacity:0; pointer-events:none;
+  transition:opacity var(--dur-mid) var(--ease), transform var(--dur-mid) var(--ease);
+  transform:translateY(-12px);
+}
+.mobile-nav.open { opacity:1; pointer-events:auto; transform:translateY(0); }
+.mobile-nav a {
+  font-family:var(--font-display);
+  font-size:26px; font-weight:600; color:var(--txt-primary);
+  transition:color var(--dur-fast);
+}
+.mobile-nav a:hover { color:var(--accent); }
+
+/* ═══════════════════════════════════════════════════════════
+   HERO
+   ═══════════════════════════════════════════════════════════ */
+.hero {
+  position:relative;
+  height:100vh; min-height:580px;
+  display:flex; align-items:center;
+  padding:0 var(--sp-8);
+  overflow:hidden;
+}
+.hero__bg {
+  position:absolute; inset:0;
+  background:url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+  will-change:transform;
+}
+/* Gradient overlay — duplo para mais controle */
+.hero__overlay {
+  position:absolute; inset:0;
+  background:
+    linear-gradient(180deg, rgba(8,9,12,.3) 0%, transparent 40%),
+    linear-gradient(180deg, transparent 50%, rgba(8,9,12,.95) 100%),
+    linear-gradient(90deg, rgba(8,9,12,.85) 0%, rgba(8,9,12,.4) 60%, transparent 100%);
+}
+
+/* Grain overlay (textura sutil sem imagem externa) */
+.hero::after {
+  content:''; position:absolute; inset:0; opacity:.04;
+  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size:256px 256px; pointer-events:none; z-index:1;
+}
+
+.hero__content {
+  position:relative; z-index:2;
+  max-width:760px;
+}
+.hero__content h1 { color:#fff; margin-bottom:var(--sp-3); }
+.hero__content h1 .accent {
+  background:linear-gradient(135deg, var(--blue-primary) 20%, var(--green-primary) 100%);
+  -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+  background-clip:text;
+}
+.hero__content > p { font-size:18px; color:rgba(240,236,228,.68); margin-bottom:var(--sp-5); }
+.hero__actions { display:flex; flex-wrap:wrap; gap:var(--sp-2); align-items:center; }
+
+/* Scroll indicator */
+.hero__scroll {
+  position:absolute; bottom:36px; left:50%;
+  transform:translateX(-50%); z-index:2;
+  display:flex; flex-direction:column; align-items:center; gap:6px;
+  color:var(--txt-secondary); font-size:10px;
+  letter-spacing:.18em; text-transform:uppercase;
+}
+.hero__scroll-line {
+  width:1px; height:36px;
+  background:linear-gradient(180deg, var(--accent-green), transparent);
+  animation:scrollDown 2s ease infinite;
+}
+@keyframes scrollDown { 0%{opacity:1;transform:scaleY(1)} 100%{opacity:0;transform:scaleY(0);transform-origin:top} }
+
+/* ═══════════════════════════════════════════════════════════
+   SEÇÃO GENÉRICA
+   ═══════════════════════════════════════════════════════════ */
+.section { padding: var(--sp-9) var(--sp-8); }
+.section--alt { background:var(--bg-elevated); }
+.section--light { background:var(--bg-light); color:var(--txt-dark); }
+.section--light p { color:rgba(26,26,26,.58); }
+
+.section__header { margin-bottom:var(--sp-6); }
+.section__header.center { text-align:center; }
+.section__header.center p { margin:0 auto; }
+
+/* ═══════════════════════════════════════════════════════════
+   SOBRE NÓS
+   ═══════════════════════════════════════════════════════════ */
+.about {
+  display:grid;
+  grid-template-columns: 1.05fr 1fr;
+  gap:clamp(48px,7vw,100px);
+  align-items:center;
+}
+
+/* Imagem com decoração geométrica */
+.about__img-wrap {
+  position:relative;
+}
+.about__img-wrap figure {
+  position:relative; border-radius:var(--r-xl); overflow:hidden;
+  aspect-ratio:4/5;
+}
+.about__img-wrap figure img {
+  width:100%; height:100%; object-fit:cover;
+  transition:transform 7s var(--ease);
+}
+.about__img-wrap figure:hover img { transform:scale(1.04); }
+
+/* Moldura accent (geométrica) */
+.about__img-wrap::before {
+  content:''; position:absolute;
+  top:-16px; left:-16px;
+  width:55%; height:55%;
+  border-top:3px solid var(--accent);
+  border-left:3px solid var(--accent);
+  border-radius:var(--r-lg) 0 0 0;
+  opacity:.5; z-index:1;
+}
+.about__img-wrap::after {
+  content:''; position:absolute;
+  bottom:-16px; right:-16px;
+  width:45%; height:45%;
+  border-bottom:3px solid var(--accent);
+  border-right:3px solid var(--accent);
+  border-radius:0 0 var(--r-lg) 0;
+  opacity:.5; z-index:1;
+}
+
+/* Stats row */
+.stats {
+  display:flex; gap:var(--sp-6); margin-top:var(--sp-5); flex-wrap:wrap;
+}
+.stat__num {
+  font-family:var(--font-display);
+  font-size:clamp(34px,4vw,44px); font-weight:800;
+  color:var(--accent-green); line-height:1;
+}
+.stat__label {
+  font-size:12px; color:var(--txt-secondary);
+  text-transform:uppercase; letter-spacing:.08em;
+  margin-top:4px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   WORKFLOW / COMO TRABALHAMOS
+   ═══════════════════════════════════════════════════════════ */
+.workflow {
+  display:flex; gap:0; position:relative;
+  max-width:1000px; margin:0 auto;
+}
+/* Linha conectora */
+.workflow::before {
+  content:''; position:absolute;
+  top:30px; left:calc(10% + 15px); right:calc(10% + 15px);
+  height:2px;
+  background:linear-gradient(90deg, var(--blue-primary), var(--border) 50%, var(--blue-primary));
+  z-index:0;
+}
+.workflow__step {
+  flex:1; position:relative; z-index:1;
+  text-align:center; padding:0 var(--sp-2);
+}
+.workflow__dot {
+  width:60px; height:60px;
+  background:var(--bg-card);
+  border:2.5px solid var(--border);
+  border-radius:50%;
+  margin:0 auto var(--sp-2);
+  display:flex; align-items:center; justify-content:center;
+  font-size:20px; color:var(--txt-secondary);
+  transition:border-color var(--dur-mid), background var(--dur-mid), color var(--dur-mid), box-shadow var(--dur-mid);
+}
+.workflow__step:hover .workflow__dot {
+  border-color:var(--accent-green);
+  background:var(--accent-green-dim);
+  color:var(--accent-green);
+  box-shadow:var(--shadow-glow);
+}
+.workflow__step h4 { color:var(--txt-primary); margin-bottom:6px; font-size:15px; }
+.workflow__step p  { font-size:13px; max-width:none; color:var(--txt-secondary); }
+
+/* ═══════════════════════════════════════════════════════════
+   SERVIÇOS GRID — GLASSMORPHISM
+   ═══════════════════════════════════════════════════════════ */
+.services-grid {
+  display:grid;
+  grid-template-columns: repeat(auto-fit, minmax(270px,1fr));
+  gap:20px;
+}
+
+.svc-card {
+  background:var(--glass-bg);
+  border:1.5px solid var(--glass-border);
+  backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+  border-radius:var(--r-lg);
+  padding:36px 28px;
+  position:relative; overflow:hidden;
+  transition:border-color var(--dur-mid) var(--ease),
+             transform    var(--dur-mid) var(--ease),
+             background   var(--dur-mid) var(--ease),
+             box-shadow   var(--dur-mid) var(--ease);
+}
+/* Brilho no hover (pseudo ::before) */
+.svc-card::before {
+  content:''; position:absolute;
+  top:-60%; left:-60%; width:120%; height:120%;
+  background:radial-gradient(circle at center, var(--accent-dim) 0%, transparent 65%);
+  opacity:0; transition:opacity var(--dur-slow) var(--ease);
+  pointer-events:none;
+}
+.svc-card:hover {
+  border-color:var(--border-hover);
+  transform:translateY(-6px);
+  background:rgba(255,255,255,.055);
+  box-shadow:var(--shadow-md);
+}
+.svc-card:hover::before { opacity:1; }
+
+.svc-card__icon {
+  width:50px; height:50px;
+  background:var(--accent-dim);
+  border-radius:var(--r-md);
+  display:flex; align-items:center; justify-content:center;
+  font-size:20px; color:var(--accent);
+  margin-bottom:var(--sp-3);
+  transition:background var(--dur-fast);
+}
+.svc-card:hover .svc-card__icon { background:rgba(46,204,113,.28); }
+
+.svc-card h4 { color:var(--txt-primary); margin-bottom:8px; position:relative; z-index:1; }
+.svc-card p  { font-size:13.5px; max-width:none; position:relative; z-index:1; }
+
+/* ═══════════════════════════════════════════════════════════
+   SERVIÇOS DESTAQUE — PARALLAX FULL-BLEED
+   ═══════════════════════════════════════════════════════════ */
+.svc-hero {
+  position:relative;
+  min-height:480px;
+  display:flex; align-items:center;
+  padding:0 var(--sp-8);
+  overflow:hidden;
+}
+.svc-hero__bg {
+  position:absolute; inset:0;
+  background-size:cover; background-position:center;
+  will-change:transform;
+}
+.svc-hero__overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(135deg, rgba(8,9,12,.88) 0%, rgba(8,9,12,.55) 60%, rgba(8,9,12,.3) 100%);
+}
+.svc-hero__body {
+  position:relative; z-index:2;
+  max-width:580px;
+}
+.svc-hero__body h3 { color:#fff; margin-bottom:var(--sp-2); }
+.svc-hero__body p  { color:rgba(240,236,228,.62); margin-bottom:var(--sp-4); max-width:none; }
+
+/* Número grande decorativo (background) */
+.svc-hero__num {
+  position:absolute; right:var(--sp-8); bottom:-30px;
+  z-index:1;
+  font-family:var(--font-display); font-weight:800;
+  font-size:clamp(140px,22vw,280px);
+  color:rgba(255,255,255,.04);
+  line-height:1; pointer-events:none; user-select:none;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   CASOS DE SUCESSO — grid com hover reveal
+   ═══════════════════════════════════════════════════════════ */
+.cases-grid {
+  display:grid;
+  grid-template-columns: repeat(3,1fr);
+  gap:20px;
+}
+.case-card {
+  position:relative; border-radius:var(--r-lg); overflow:hidden;
+  aspect-ratio:3/4;
+  cursor:pointer;
+}
+.case-card__img {
+  width:100%; height:100%; object-fit:cover;
+  transition:transform 0.8s var(--ease);
+}
+.case-card:hover .case-card__img { transform:scale(1.06); }
+
+/* Overlay base (sempre visível — bottom gradient) */
+.case-card__overlay {
+  position:absolute; inset:0;
+  background:linear-gradient(180deg, transparent 30%, rgba(8,9,12,.82) 75%, rgba(8,9,12,.95) 100%);
+  display:flex; flex-direction:column; justify-content:flex-end;
+  padding:var(--sp-4);
+  transition:background var(--dur-mid);
+}
+.case-card:hover .case-card__overlay {
+  background:linear-gradient(180deg, rgba(8,9,12,.3) 0%, rgba(8,9,12,.88) 60%, rgba(8,9,12,.97) 100%);
+}
+
+.case-card__badge {
+  display:inline-flex; align-items:center; gap:6px;
+  background:var(--accent-dim); color:var(--accent);
+  padding:5px 12px; border-radius:var(--r-pill);
+  font-size:11px; font-weight:600; letter-spacing:.08em;
+  text-transform:uppercase; width:fit-content;
+  margin-bottom:var(--sp-2);
+}
+.case-card h4 { color:#fff; font-size:18px; margin-bottom:8px; }
+.case-card__desc {
+  font-size:13px; color:rgba(240,236,228,.6);
+  max-height:0; overflow:hidden;
+  transition:max-height var(--dur-slow) var(--ease), opacity var(--dur-mid);
+  opacity:0;
+}
+.case-card:hover .case-card__desc { max-height:80px; opacity:1; }
+
+/* Métrica (sempre visível) */
+.case-card__metric {
+  display:inline-flex; align-items:center; gap:6px;
+  margin-top:var(--sp-2);
+  background:rgba(46,204,113,.15); color:var(--accent-green);
+  padding:5px 12px; border-radius:var(--r-pill);
+  font-weight:600; font-size:13px; width:fit-content;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TESTEMUNHOS — CARROSSEL
+   ═══════════════════════════════════════════════════════════ */
+.carousel-viewport { overflow:hidden; }
+.carousel-track {
+  display:flex; gap:24px;
+  transition:transform .65s var(--ease);
+  will-change:transform;
+}
+.testimonial {
+  flex:0 0 calc(33.333% - 16px);
+  background:var(--glass-bg);
+  border:1.5px solid var(--glass-border);
+  backdrop-filter:blur(6px); -webkit-backdrop-filter:blur(6px);
+  border-radius:var(--r-lg);
+  padding:38px 30px;
+  display:flex; flex-direction:column; gap:18px;
+  position:relative; overflow:hidden;
+}
+/* Quote mark decorativo */
+.testimonial::before {
+  content:'\201C';
+  position:absolute; top:20px; right:28px;
+  font-family:var(--font-display); font-size:100px; font-weight:800;
+  color:var(--accent); opacity:.08; line-height:1;
+  pointer-events:none;
+}
+.testimonial p { font-size:15px; font-style:italic; color:var(--txt-secondary); max-width:none; flex:1; position:relative; z-index:1; }
+.testimonial__author { display:flex; align-items:center; gap:14px; position:relative; z-index:1; }
+.testimonial__avatar {
+  width:46px; height:46px; border-radius:50%;
+  background:linear-gradient(135deg,var(--blue-primary),var(--green-primary));
+  display:flex; align-items:center; justify-content:center;
+  font-family:var(--font-display); font-weight:700; font-size:16px; color:#fff;
+  flex-shrink:0;
+}
+.testimonial__name  { font-weight:600; font-size:14.5px; color:var(--txt-primary); }
+.testimonial__role  { font-size:12.5px; color:var(--txt-secondary); }
+
+/* Controles */
+.carousel-controls {
+  display:flex; align-items:center; justify-content:center; gap:14px;
+  margin-top:var(--sp-5);
+}
+.carousel-btn {
+  width:46px; height:46px; border-radius:50%;
+  border:1.5px solid var(--border);
+  background:var(--bg-card); color:var(--txt-primary);
+  font-size:17px; cursor:pointer;
+  display:flex; align-items:center; justify-content:center;
+  transition:border-color var(--dur-fast), background var(--dur-fast), transform var(--dur-fast);
+}
+.carousel-btn:hover { border-color:var(--accent); background:var(--accent-dim); transform:scale(1.08); }
+.carousel-dots { display:flex; gap:8px; }
+.carousel-dot {
+  width:9px; height:9px; border-radius:50%;
+  border:none; background:var(--border); cursor:pointer;
+  transition:background var(--dur-fast), transform var(--dur-fast);
+}
+.carousel-dot.active { background:var(--accent); transform:scale(1.35); }
+
+/* ═══════════════════════════════════════════════════════════
+   CONTACTO
+   ═══════════════════════════════════════════════════════════ */
+.contact-grid {
+  display:grid;
+  grid-template-columns:1fr 1.2fr;
+  gap:clamp(40px,6vw,100px);
+  align-items:start;
+}
+
+/* Info col (dark bg) */
+.contact-info h3 { margin-bottom:var(--sp-2); }
+.contact-info > p { margin-bottom:var(--sp-4); }
+
+.info-item {
+  display:flex; align-items:flex-start; gap:16px;
+  margin-bottom:var(--sp-3);
+}
+.info-item__icon {
+  width:44px; height:44px; border-radius:var(--r-md);
+  background:var(--accent-dim);
+  display:flex; align-items:center; justify-content:center;
+  color:var(--accent); font-size:18px; flex-shrink:0;
+}
+.info-item__text strong { color:var(--txt-primary); display:block; margin-bottom:3px; font-size:14px; }
+.info-item__text span  { color:var(--txt-secondary); font-size:13.5px; }
+.info-item__text a     { color:var(--txt-secondary); transition:color var(--dur-fast); }
+.info-item__text a:hover { color:var(--accent); }
+
+/* Form card */
+.contact-form-wrap {
+  background:#fff;
+  border-radius:var(--r-xl);
+  padding:var(--sp-5) var(--sp-5);
+  box-shadow:var(--shadow-lg);
+}
+.contact-form-wrap h4 { color:var(--txt-dark); margin-bottom:var(--sp-3); font-size:22px; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:var(--sp-2); }
+.form-group { display:flex; flex-direction:column; gap:6px; margin-bottom: var(--sp-2); }
+.form-group label {
+  font-size:12px; font-weight:600; color:rgba(26,26,26,.5);
+  text-transform:uppercase; letter-spacing:.07em;
+}
+.form-group input,
+.form-group textarea,
+.form-group select {
+  padding:13px 16px;
+  border:1.5px solid #e2dfd9;
+  border-radius:var(--r-md);
+  font-family:var(--font-body); font-size:14.5px;
+  color:var(--txt-dark); background:#faf9f7;
+  outline:none;
+  transition:border-color var(--dur-fast), box-shadow var(--dur-fast), background var(--dur-fast);
+}
+.form-group input:focus,
+.form-group textarea:focus,
+.form-group select:focus {
+  border-color:var(--accent);
+  box-shadow:0 0 0 3px var(--accent-glow);
+  background:#fff;
+}
+.form-group textarea { min-height:110px; resize:vertical; }
+.form-group input::placeholder,
+.form-group textarea::placeholder { color:#aaa; }
+
+.btn-submit { 
+  width:100%; 
+  margin-top:8px; 
+  justify-content:center;
+  transition: all 0.3s ease;
+}
+
+/* Success message styling */
+.success-message {
+  display: none;
+  background: #d4edda;
+  border: 1px solid #c3e6cb;
+  color: #155724;
+  padding: 16px;
+  border-radius: var(--r-md);
+  margin-bottom: var(--sp-3);
+  text-align: center;
+  font-weight: 500;
+}
+
+.success-message.show {
+  display: block;
+  animation: slideDown 0.3s ease;
+}
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   FOOTER
+   ═══════════════════════════════════════════════════════════ */
+footer {
+  background:#060709;
+  padding:var(--sp-8) var(--sp-8) var(--sp-4);
+  border-top:1px solid var(--border);
+}
+.footer__grid {
+  display:grid;
+  grid-template-columns:1.5fr 1fr 1fr 1fr;
+  gap:clamp(28px,4vw,72px);
+  padding-bottom:var(--sp-6);
+  border-bottom:1px solid var(--border);
+}
+.footer__brand .logo { font-size:22px; margin-bottom:var(--sp-2); display:inline-block; }
+.footer__brand p { font-size:13.5px; max-width:300px; }
+
+.footer__col h5 {
+  font-family:var(--font-display);
+  font-size:11.5px; font-weight:600;
+  text-transform:uppercase; letter-spacing:.14em;
+  color:var(--txt-primary); margin-bottom:var(--sp-2);
+}
+.footer__col a, .footer__col span {
+  display:block; font-size:13.5px; color:var(--txt-secondary);
+  margin-bottom:10px; transition:color var(--dur-fast);
+}
+.footer__col a:hover { color:var(--accent); }
+
+/* Social row */
+.footer__socials { display:flex; gap:10px; margin-top:var(--sp-2); }
+.footer__socials a {
+  width:38px; height:38px; border-radius:50%;
+  border:1.5px solid var(--border);
+  display:flex; align-items:center; justify-content:center;
+  font-size:14px; color:var(--txt-secondary); margin-bottom:0;
+  transition:border-color var(--dur-fast), color var(--dur-fast), background var(--dur-fast);
+}
+.footer__socials a:hover { border-color:var(--accent); color:var(--accent); background:var(--accent-dim); }
+
+/* Payment badges */
+.payment-badges { display:flex; flex-wrap:wrap; gap:10px; margin-top:8px; }
+.pay-badge {
+  background:rgba(255,255,255,.05);
+  border:1px solid var(--border);
+  border-radius:var(--r-sm);
+  padding:8px 12px;
+  display:flex; align-items:center; justify-content:center;
+  transition:background var(--dur-fast), border-color var(--dur-fast), transform var(--dur-fast);
+  height: 40px;
+}
+.pay-badge:hover { 
+  background:rgba(255,255,255,.08); 
+  border-color:var(--accent);
+  transform: translateY(-2px);
+}
+.pay-badge img {
+  height: 24px;
+  width: auto;
+  object-fit: contain;
+}
+
+/* Bottom bar */
+.footer__bottom {
+  display:flex; justify-content:center; align-items:center;
+  padding-top:var(--sp-3); font-size:12.5px; color:var(--txt-secondary);
+  flex-wrap:wrap; gap:10px;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE — TABLET
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width:960px) {
+  header { padding:18px var(--sp-5); }
+  header.scrolled { padding:10px var(--sp-5); }
+  .section { padding:var(--sp-8) var(--sp-5); }
+
+  .about { grid-template-columns:1fr; }
+  .about__img-wrap { max-width:440px; margin:0 auto; width:100%; }
+
+  .cases-grid { grid-template-columns:repeat(2,1fr); }
+  .testimonial { flex:0 0 calc(50% - 12px); }
+
+  .contact-grid { grid-template-columns:1fr; }
+  .footer__grid { grid-template-columns:1fr 1fr; }
+
+  .svc-hero { padding:0 var(--sp-5); }
+  .svc-hero__num { right:var(--sp-5); }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RESPONSIVE — MOBILE
+   ═══════════════════════════════════════════════════════════ */
+@media (max-width:640px) {
+  /* Nav */
+  nav.desktop-nav, .nav-cta { display:none; }
+  .hamburger { display:flex; }
+  header { padding:16px var(--sp-3); }
+  header.scrolled { padding:10px var(--sp-3); }
+  .section { padding:var(--sp-7) var(--sp-3); }
+
+  /* Hero */
+  .hero { min-height:100svh; padding:0 var(--sp-3); }
+  .hero__bg { transform:none !important; }
+  .hero__actions { flex-direction:column; align-items:flex-start; }
+
+  /* Workflow → vertical */
+  .workflow { flex-direction:column; gap:var(--sp-3); max-width:100%; }
+  .workflow::before { display:none; }
+  .workflow__step { text-align:left; display:flex; gap:18px; align-items:flex-start; }
+  .workflow__dot { flex-shrink:0; width:50px; height:50px; margin:0; }
+
+  /* Services feature */
+  .svc-hero { min-height:400px; padding:60px var(--sp-3); }
+  .svc-hero__num { display:none; }
+
+  /* Cases */
+  .cases-grid { grid-template-columns:1fr; }
+  .case-card { aspect-ratio:auto; }
+  .case-card__img { height:220px; }
+
+  /* Carousel */
+  .testimonial { flex:0 0 100%; }
+
+  /* Form */
+  .form-row { grid-template-columns:1fr; }
+  .contact-form-wrap { padding:var(--sp-4) var(--sp-3); }
+
+  /* Footer */
+  .footer__grid { grid-template-columns:1fr; }
+  footer { padding:var(--sp-7) var(--sp-3) var(--sp-4); }
+  .footer__bottom { flex-direction:column; text-align:center; }
+}
+
+/* ═══════════════════════════════════════════════════════════
+   UTILITÁRIOS
+   ═══════════════════════════════════════════════════════════ */
+.sr-only { position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0; }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════════════
+     HEADER
+     ═══════════════════════════════════════════════════════ -->
+<header id="siteHeader" role="banner">
+  <a href="#" class="logo" aria-label="KADITECH — início">KADI<span>TECH</span></a>
+
+  <nav class="desktop-nav" aria-label="Navegação principal">
+    <a href="#sobre"     data-spy="sobre">Empresa</a>
+    <a href="#servicos"  data-spy="servicos">Serviços</a>
+    <a href="#casos"     data-spy="casos">Casos</a>
+    <a href="#contacto"  data-spy="contacto">Contacto</a>
+  </nav>
+  <a href="#contacto" class="nav-cta">Orçamento</a>
+
+  <button class="hamburger" id="hamburgerBtn"
+          aria-label="Abrir menu de navegação" aria-expanded="false" aria-controls="mobileNav">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<!-- Mobile nav overlay -->
+<nav class="mobile-nav" id="mobileNav" role="dialog" aria-label="Menu móvel">
+  <a href="#sobre"    onclick="closeMobile()">Empresa</a>
+  <a href="#servicos" onclick="closeMobile()">Serviços</a>
+  <a href="#casos"    onclick="closeMobile()">Casos</a>
+  <a href="#contacto" onclick="closeMobile()">Contacto</a>
+</nav>
+
+<!-- ═══════════════════════════════════════════════════════
+     MAIN
+     ═══════════════════════════════════════════════════════ -->
+<main>
+
+<!-- ── HERO ── -->
+<section class="hero" id="hero" aria-labelledby="heroTitle">
+  <div class="hero__bg" aria-hidden="true"></div>
+  <div class="hero__overlay" aria-hidden="true"></div>
+
+  <div class="hero__content reveal">
+    <div class="badge">Soluções Tecnológicas</div>
+    <h1 id="heroTitle">Soluções<br><span class="accent">Técnicas</span><br>Integradas</h1>
+    <p>Transformamos desafios empresariais em sistemas tecnológicos eficientes — do diagnóstico à evolução contínua.</p>
+    <div class="hero__actions">
+      <a href="#contacto" class="btn">Pedir Orçamento <i class="fas fa-arrow-right"></i></a>
+      <a href="#servicos" class="btn-ghost">Ver Serviços <i class="fas fa-chevron-down"></i></a>
+    </div>
+  </div>
+
+  <div class="hero__scroll" aria-hidden="true">
+    <span>Scroll</span>
+    <div class="hero__scroll-line"></div>
+  </div>
+</section>
+
+<!-- ── SOBRE NÓS ── -->
+<section class="section" id="sobre" aria-labelledby="sobreTitle">
+  <div class="about">
+    <div class="about__img-wrap reveal">
+      <figure>
+        <img src="https://images.unsplash.com/photo-1581090700227-1e37b190418e?auto=format&fit=crop&w=900&q=75"
+             alt="Equipa KADITECH em ambiente de trabalho colaborativo"
+             loading="lazy">
+      </figure>
+    </div>
+
+    <div class="reveal">
+      <div class="badge">Sobre Nós</div>
+      <h2 id="sobreTitle">Parceiros<br>estratégicos,<br>não fornecedores.</h2>
+      <p>A KADITECH SOLUTION SUL é especializada em tecnologia, engenharia, segurança e consultoria empresarial. Atuamos com foco em qualidade, inovação e atendimento verdadeiramente personalizado.</p>
+
+      <div class="stats">
+        <div>
+          <div class="stat__num">8+</div>
+          <div class="stat__label">Anos<br>Experiência</div>
+        </div>
+        <div>
+          <div class="stat__num">120+</div>
+          <div class="stat__label">Clientes<br>Satisfeitos</div>
+        </div>
+        <div>
+          <div class="stat__num">100%</div>
+          <div class="stat__label">Compromisso</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── COMO TRABALHAMOS ── -->
+<section class="section section--alt" aria-labelledby="workflowTitle">
+  <div class="section__header center reveal">
+    <div class="badge">Metodologia</div>
+    <h2 id="workflowTitle">Como Trabalhamos</h2>
+  </div>
+  <div class="workflow reveal">
+    <div class="workflow__step">
+      <div class="workflow__dot"><i class="fas fa-search"></i></div>
+      <h4>Diagnóstico</h4>
+      <p>Análise profunda das necessidades da sua empresa.</p>
+    </div>
+    <div class="workflow__step">
+      <div class="workflow__dot"><i class="fas fa-lightbulb"></i></div>
+      <h4>Planeamento</h4>
+      <p>Estratégia personalizada com cronograma claro.</p>
+    </div>
+    <div class="workflow__step">
+      <div class="workflow__dot"><i class="fas fa-cog"></i></div>
+      <h4>Implementação</h4>
+      <p>Execução precisa com tecnologia state-of-the-art.</p>
+    </div>
+    <div class="workflow__step">
+      <div class="workflow__dot"><i class="fas fa-headset"></i></div>
+      <h4>Suporte</h4>
+      <p>Acompanhamento e assistência técnica dedicada.</p>
+    </div>
+    <div class="workflow__step">
+      <div class="workflow__dot"><i class="fas fa-chart-line"></i></div>
+      <h4>Evolução</h4>
+      <p>Otimização permanente para crescimento.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVIÇOS GRID ── -->
+<section class="section" id="servicos" aria-labelledby="servicosTitle">
+  <div class="section__header center reveal">
+    <div class="badge">O que Fazemos</div>
+    <h2 id="servicosTitle">Todos os Serviços</h2>
+  </div>
+
+  <div class="services-grid" id="servicesGrid">
+    <article class="svc-card reveal">
+      <div class="svc-card__icon"><i class="fas fa-briefcase"></i></div>
+      <h4>Materiais de Escritório</h4>
+      <p>Equipamentos e materiais premium para espaços de trabalho modernos.</p>
+    </article>
+    <article class="svc-card reveal">
+      <div class="svc-card__icon"><i class="fas fa-desktop"></i></div>
+      <h4>Equipamentos Informáticos</h4>
+      <p>Computadores, periféricos e hardware adaptados às suas exigências.</p>
+    </article>
+    <article class="svc-card reveal">
+      <div class="svc-card__icon"><i class="fas fa-bolt"></i></div>
+      <h4>Electrónica & Elétrica</h4>
+      <p>Equipamentos electrónicos e elétricos de marcas líder no mercado.</p>
+    </article>
+    <article class="svc-card reveal">
+      <div class="svc-card__icon"><i class="fas fa-chart-bar"></i></div>
+      <h4>Consultoria Empresarial</h4>
+      <p>Estratégias inteligentes de gestão e digitalização empresarial.</p>
+    </article>
+    <article class="svc-card reveal">
+      <div class="svc-card__icon"><i class="fas fa-network-wired"></i></div>
+      <h4>Serviços de TI</h4>
+      <p>Infraestrutura, redes, cloud e suporte técnico empresarial.</p>
+    </article>
+    <article class="svc-card reveal">
+      <div class="svc-card__icon"><i class="fas fa-snowflake"></i></div>
+      <h4>Refrigeração & Climatização</h4>
+      <p>Instalação e manutenção de sistemas de climatização.</p>
+    </article>
+    <article class="svc-card reveal">
+      <div class="svc-card__icon"><i class="fas fa-tv"></i></div>
+      <h4>Eletrodomésticos</h4>
+      <p>Linha completa para uso doméstico e comercial.</p>
+    </article>
+    <article class="svc-card reveal">
+      <div class="svc-card__icon"><i class="fas fa-video"></i></div>
+      <h4>Segurança & Vigilância</h4>
+      <p>Sistemas CCTV, alarmes e controlo de acesso avançados.</p>
+    </article>
+    <article class="svc-card reveal">
+      <div class="svc-card__icon"><i class="fas fa-drafting-compass"></i></div>
+      <h4>Arquitetura</h4>
+      <p>Projetos arquitectónicos criativos e funcionais.</p>
+    </article>
+    <article class="svc-card reveal">
+      <div class="svc-card__icon"><i class="fas fa-tools"></i></div>
+      <h4>Engenharia & Eletrotécnica</h4>
+      <p>Projetos técnicos, instalações e manutenção industrial.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ── SERVIÇOS DESTAQUE (parallax) ── -->
+<section class="svc-hero" aria-labelledby="featTI">
+  <div class="svc-hero__bg" style="background-image:url('https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=1920&q=70')" aria-hidden="true"></div>
+  <div class="svc-hero__overlay" aria-hidden="true"></div>
+  <span class="svc-hero__num" aria-hidden="true">01</span>
+  <div class="svc-hero__body reveal">
+    <div class="badge">Destaque</div>
+    <h3 id="featTI"><i class="fas fa-network-wired"></i> Serviços de TI</h3>
+    <p>Infraestrutura robusta, redes otimizadas, soluções cloud e suporte técnico empresarial — tudo sob um teto. Fiabilidade que as empresas exigem.</p>
+    <a href="#contacto" class="btn">Saber Mais <i class="fas fa-arrow-right"></i></a>
+  </div>
+</section>
+
+<section class="svc-hero" aria-labelledby="featConsult">
+  <div class="svc-hero__bg" style="background-image:url('https://images.unsplash.com/photo-1560264280-88b68371db39?auto=format&fit=crop&w=1920&q=70')" aria-hidden="true"></div>
+  <div class="svc-hero__overlay" aria-hidden="true"></div>
+  <span class="svc-hero__num" aria-hidden="true">02</span>
+  <div class="svc-hero__body reveal">
+    <div class="badge">Destaque</div>
+    <h3 id="featConsult"><i class="fas fa-chart-bar"></i> Consultoria Empresarial</h3>
+    <p>Planeamento estratégico, digitalização e transformação organizacional que geram resultados concretos e sustentáveis para o seu negócio.</p>
+    <a href="#contacto" class="btn">Saber Mais <i class="fas fa-arrow-right"></i></a>
+  </div>
+</section>
+
+<section class="svc-hero" aria-labelledby="featEng">
+  <div class="svc-hero__bg" style="background-image:url('https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?auto=format&fit=crop&w=1920&q=70')" aria-hidden="true"></div>
+  <div class="svc-hero__overlay" aria-hidden="true"></div>
+  <span class="svc-hero__num" aria-hidden="true">03</span>
+  <div class="svc-hero__body reveal">
+    <div class="badge">Destaque</div>
+    <h3 id="featEng"><i class="fas fa-tools"></i> Engenharia & Eletrotécnica</h3>
+    <p>Projetos técnicos de alto padrão, instalações industriais e manutenção preventiva para máxima eficiência operacional.</p>
+    <a href="#contacto" class="btn">Saber Mais <i class="fas fa-arrow-right"></i></a>
+  </div>
+</section>
+
+<!-- ── CASOS DE SUCESSO ── -->
+<section class="section section--alt" id="casos" aria-labelledby="casosTitle">
+  <div class="section__header center reveal">
+    <div class="badge">Resultados Reais</div>
+    <h2 id="casosTitle">Casos de Sucesso</h2>
+  </div>
+  <div class="cases-grid">
+    <article class="case-card reveal">
+      <img class="case-card__img" src="https://images.unsplash.com/photo-1504384308090-c894fdcc538d?auto=format&fit=crop&w=800&q=70" alt="Centro de dados moderno com servidores" loading="lazy">
+      <div class="case-card__overlay">
+        <div class="case-card__badge"><i class="fas fa-server"></i> Logística</div>
+        <h4>Infraestrutura TI Completa</h4>
+        <p class="case-card__desc">Implementação end-to-end de redes, servidores e software de gestão numa empresa logística nacional.</p>
+        <div class="case-card__metric"><i class="fas fa-arrow-up"></i> +45% Produtividade</div>
+      </div>
+    </article>
+    <article class="case-card reveal">
+      <img class="case-card__img" src="https://images.unsplash.com/photo-1558002038-1055907df827?auto=format&fit=crop&w=800&q=75" alt="Sistema de vigilância em espaço educacional" loading="lazy">
+      <div class="case-card__overlay">
+        <div class="case-card__badge"><i class="fas fa-video"></i> Educação</div>
+        <h4>Sistema CCTV Integral</h4>
+        <p class="case-card__desc">Câmeras IP de alta resolução, gravação 24/7 e monitorização remota numa instituição educacional.</p>
+        <div class="case-card__metric"><i class="fas fa-arrow-down"></i> −70% Incidentes</div>
+      </div>
+    </article>
+    <article class="case-card reveal">
+      <img class="case-card__img" src="https://images.unsplash.com/photo-1581090464777-f3220bbe1b8b?auto=format&fit=crop&w=800&q=70" alt="Painel elétrico industrial moderno" loading="lazy">
+      <div class="case-card__overlay">
+        <div class="case-card__badge"><i class="fas fa-bolt"></i> Industrial</div>
+        <h4>Projeto Elétrico Industrial</h4>
+        <p class="case-card__desc">Redesenho completo do sistema elétrico com painéis modernos e controlo automático de energia.</p>
+        <div class="case-card__metric"><i class="fas fa-arrow-down"></i> −30% Energia</div>
+      </div>
+    </article>
+  </div>
+</section>
+
+<!-- ── TESTEMUNHOS ── -->
+<section class="section" aria-labelledby="testimTitle">
+  <div class="section__header center reveal">
+    <div class="badge">Testemunhos</div>
+    <h2 id="testimTitle">O que Dizem os Clientes</h2>
+  </div>
+
+  <div class="carousel-viewport" aria-label="Carrossel de testemunhos" role="region">
+    <div class="carousel-track" id="carouselTrack">
+      <div class="testimonial">
+        <p>A Kaditech é hoje nosso parceiro tecnológico principal. A qualidade do serviço e o comprometimento da equipa são excepcionais — ultrapassam sempre as expectativas.</p>
+        <div class="testimonial__author">
+          <div class="testimonial__avatar">JC</div>
+          <div>
+            <div class="testimonial__name">João Carlos</div>
+            <div class="testimonial__role">CEO — Empresa Logística</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <p>Equipa altamente profissional e eficiente. Entregaram o projecto dentro do prazo e muito acima das expectativas iniciais.</p>
+        <div class="testimonial__author">
+          <div class="testimonial__avatar">AM</div>
+          <div>
+            <div class="testimonial__name">Ana Maria</div>
+            <div class="testimonial__role">Directora Operacional</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <p>Resultados concretos e sustentáveis. A parceria com a Kaditech foi uma das melhores decisões estratégicas que tomámos.</p>
+        <div class="testimonial__author">
+          <div class="testimonial__avatar">MR</div>
+          <div>
+            <div class="testimonial__name">Miguel Reis</div>
+            <div class="testimonial__role">Gestor de Projetos</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <p>Implementação impecável do sistema de segurança. A monitorização remota trouxe tranquilidade total para a nossa instituição.</p>
+        <div class="testimonial__author">
+          <div class="testimonial__avatar">PM</div>
+          <div>
+            <div class="testimonial__name">Paulo Macamo</div>
+            <div class="testimonial__role">Director — Instituição Educacional</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <p>O suporte técnico é excepcional. Sempre disponíveis, sempre eficazes. Sentimo-nos verdadeiramente apoiados.</p>
+        <div class="testimonial__author">
+          <div class="testimonial__avatar">CF</div>
+          <div>
+            <div class="testimonial__name">Carla Fonseca</div>
+            <div class="testimonial__role">CTO — Fintech</div>
+          </div>
+        </div>
+      </div>
+      <div class="testimonial">
+        <p>A consultoria empresarial da Kaditech ajudou-nos a digitalizar processos críticos. O ROI foi visível em menos de 6 meses.</p>
+        <div class="testimonial__author">
+          <div class="testimonial__avatar">RS</div>
+          <div>
+            <div class="testimonial__name">Ricardo Santos</div>
+            <div class="testimonial__role">CFO — Grupo Industrial</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="carousel-controls">
+    <button class="carousel-btn" id="prevBtn" aria-label="Testemunho anterior"><i class="fas fa-chevron-left"></i></button>
+    <div class="carousel-dots" id="carouselDots" role="tablist" aria-label="Indicadores do carrossel">
+      <button class="carousel-dot active" role="tab" aria-selected="true"  aria-label="Testemunho 1"></button>
+      <button class="carousel-dot"        role="tab" aria-selected="false" aria-label="Testemunho 2"></button>
+      <button class="carousel-dot"        role="tab" aria-selected="false" aria-label="Testemunho 3"></button>
+      <button class="carousel-dot"        role="tab" aria-selected="false" aria-label="Testemunho 4"></button>
+      <button class="carousel-dot"        role="tab" aria-selected="false" aria-label="Testemunho 5"></button>
+      <button class="carousel-dot"        role="tab" aria-selected="false" aria-label="Testemunho 6"></button>
+    </div>
+    <button class="carousel-btn" id="nextBtn" aria-label="Testemunho seguinte"><i class="fas fa-chevron-right"></i></button>
+  </div>
+</section>
+
+<!-- ── CONTACTO ── -->
+<section class="section section--alt" id="contacto" aria-labelledby="contactTitle">
+  <div class="section__header center reveal">
+    <div class="badge">Contacto</div>
+    <h2 id="contactTitle">Solicitar Orçamento</h2>
+  </div>
+
+  <div class="contact-grid">
+    <!-- Info -->
+    <div class="reveal contact-info">
+      <h3>Vamos conversar</h3>
+      <p>Pronto para transformar a sua empresa? Apresentemos como a KADITECH pode ser o parceiro que precisava.</p>
+
+      <div class="info-item">
+        <div class="info-item__icon"><i class="fas fa-phone"></i></div>
+        <div class="info-item__text">
+          <strong>Telefone</strong>
+          <a href="tel:+258871804502">+258 87 180 4502</a>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-item__icon"><i class="fas fa-envelope"></i></div>
+        <div class="info-item__text">
+          <strong>Email</strong>
+          <a href="mailto:info@kaditech.mz">info@kaditech.mz</a>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-item__icon"><i class="fas fa-map-marker-alt"></i></div>
+        <div class="info-item__text">
+          <strong>Localização</strong>
+          <span>Sommerschield, Maputo, Moçambique</span>
+        </div>
+      </div>
+      <div class="info-item">
+        <div class="info-item__icon"><i class="fab fa-whatsapp"></i></div>
+        <div class="info-item__text">
+          <strong>WhatsApp</strong>
+          <a href="https://wa.me/258871804502">+258 87 180 4502</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Form -->
+    <div class="contact-form-wrap reveal">
+      <div id="successMessage" class="success-message">
+        <i class="fas fa-check-circle"></i> 
+        Mensagem enviada com sucesso! Entraremos em contacto em breve.
+      </div>
+      
+      <form id="contactForm" action="https://formspree.io/f/xbdadapq" method="POST">
+        <h4>Preencha o formulário</h4>
+        
+        <!-- Campos ocultos para configuração do Formspree -->
+        <input type="hidden" name="_subject" value="Novo pedido de orçamento - KADITECH">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" value="#contacto">
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fName">Nome Completo</label>
+            <input type="text" id="fName" name="name" placeholder="João Silva" autocomplete="name" required>
+          </div>
+          <div class="form-group">
+            <label for="fCompany">Empresa</label>
+            <input type="text" id="fCompany" name="company" placeholder="Empresa Lda" autocomplete="organization">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="form-group">
+            <label for="fEmail">Email</label>
+            <input type="email" id="fEmail" name="email" placeholder="joao@empresa.com" autocomplete="email" required>
+          </div>
+          <div class="form-group">
+            <label for="fPhone">Telefone</label>
+            <input type="tel" id="fPhone" name="phone" placeholder="+258 87 000 0000" autocomplete="tel">
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="fService">Serviço de Interesse</label>
+          <select id="fService" name="service">
+            <option value="" disabled selected>Seleccione...</option>
+            <option value="ti">Serviços de TI</option>
+            <option value="consultoria">Consultoria Empresarial</option>
+            <option value="engenharia">Engenharia & Eletrotécnica</option>
+            <option value="seguranca">Segurança & Vigilância</option>
+            <option value="equipamentos">Equipamentos Informáticos</option>
+            <option value="climatizacao">Refrigeração & Climatização</option>
+            <option value="outro">Outro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="fMessage">Mensagem</label>
+          <textarea id="fMessage" name="message" placeholder="Descreva a sua necessidade..." rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-submit" id="submitBtn">
+          Enviar Pedido <i class="fas fa-paper-plane"></i>
+        </button>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main><!-- /main -->
+
+<!-- ═══════════════════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════════════════ -->
+<footer role="contentinfo">
+  <div class="footer__grid">
+    <div class="footer__brand">
+      <a href="#" class="logo">KADI<span>TECH</span></a>
+      <p>Soluções técnicas integradas para empresas e instituições. Tecnologia, engenharia e consultoria que transforma.</p>
+      <div class="footer__socials">
+        <a href="#" aria-label="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+      </div>
+    </div>
+    <div class="footer__col">
+      <h5>Serviços</h5>
+      <a href="#servicos">Serviços de TI</a>
+      <a href="#servicos">Consultoria</a>
+      <a href="#servicos">Engenharia</a>
+      <a href="#servicos">Segurança</a>
+      <a href="#servicos">Climatização</a>
+    </div>
+    <div class="footer__col">
+      <h5>Empresa</h5>
+      <a href="#sobre">Sobre Nós</a>
+      <a href="#casos">Casos de Sucesso</a>
+      <a href="#contacto">Contacto</a>
+      <span>Política de Privacidade</span>
+      <span>Termos de Serviço</span>
+    </div>
+    <div class="footer__col">
+      <h5>Pagamentos Aceites</h5>
+      <div class="payment-badges">
+        <div class="pay-badge">
+          <img src="https://i.ibb.co/fVQcFz1K/download-2.png" alt="Millennium BIM">
+        </div>
+        <div class="pay-badge">
+          <img src="https://i.ibb.co/r9BtS5C/download-3.png" alt="BCI">
+        </div>
+        <div class="pay-badge">
+          <img src="https://i.ibb.co/pBsPtkF2/download-4.png" alt="M-Pesa">
+        </div>
+        <div class="pay-badge">
+          <img src="https://i.ibb.co/5hZ9bPTr/download-5.png" alt="e-Mola">
+        </div>
+      </div>
+      <br>
+      <h5>Localização</h5>
+      <span>Sommerschield, Maputo</span>
+      <span>Moçambique</span>
+    </div>
+  </div>
+  <div class="footer__bottom">
+    <span>&copy; 2026 KADITECH SOLUTION SUL, LDA. Todos os direitos reservados.</span>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════
+     SCRIPTS — modular IIFEs
+     ═══════════════════════════════════════════════════════ -->
+
+<!-- 1. Header: scroll behaviour + scroll-spy -->
+<script>
+(function HeaderModule(){
+  const hdr   = document.getElementById('siteHeader');
+  const links = hdr.querySelectorAll('[data-spy]');
+  const sections = [];
+
+  function buildSections() {
+    links.forEach(link => {
+      const el = document.getElementById(link.dataset.spy);
+      if (el) sections.push({ link, el });
+    });
+  }
+
+  function onScroll() {
+    hdr.classList.toggle('scrolled', window.scrollY > 50);
+    const scrollY = window.scrollY + 120;
+    let current = null;
+    sections.forEach(({ el }) => {
+      if (scrollY >= el.offsetTop) current = el.id;
+    });
+    links.forEach(l => l.classList.toggle('active', l.dataset.spy === current));
+  }
+
+  window.addEventListener('scroll', onScroll, { passive: true });
+  document.fonts.ready.then(() => { buildSections(); onScroll(); });
+})();
+</script>
+
+<!-- 2. Hamburger / mobile nav -->
+<script>
+(function MobileNavModule(){
+  const btn  = document.getElementById('hamburgerBtn');
+  const menu = document.getElementById('mobileNav');
+  let   open = false;
+  const bars = btn.querySelectorAll('span');
+
+  function toggle(state) {
+    open = state;
+    menu.classList.toggle('open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    bars[0].style.transform = open ? 'translateY(7px) rotate(45deg)'  : '';
+    bars[1].style.opacity   = open ? '0' : '';
+    bars[2].style.transform = open ? 'translateY(-7px) rotate(-45deg)' : '';
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  btn.addEventListener('click', () => toggle(!open));
+  menu.addEventListener('click', e => { if (e.target === menu) toggle(false); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && open) toggle(false); });
+
+  window.closeMobile = () => toggle(false);
+})();
+</script>
+
+<!-- 3. GSAP — reveals, parallax -->
+<script>
+(function GSAPModule(){
+  function init() {
+    if (!window.gsap || !window.ScrollTrigger) { setTimeout(init, 50); return; }
+
+    const { gsap, ScrollTrigger } = window;
+    gsap.registerPlugin(ScrollTrigger);
+
+    gsap.utils.toArray('.reveal').forEach(el => {
+      gsap.fromTo(el,
+        { opacity:0, y:50 },
+        { opacity:1, y:0, duration:.9, ease:'power3.out',
+          scrollTrigger:{ trigger:el, start:'top 87%', once:true }
+        }
+      );
+    });
+
+    const svcCards = document.querySelectorAll('#servicesGrid .svc-card');
+    if (svcCards.length) {
+      svcCards.forEach(c => { c.style.opacity=''; c.style.transform=''; });
+      gsap.fromTo(svcCards,
+        { opacity:0, y:40 },
+        { opacity:1, y:0, duration:.7, ease:'power3.out', stagger:.08,
+          scrollTrigger:{ trigger:'#servicesGrid', start:'top 82%', once:true }
+        }
+      );
+    }
+
+    const heroBg = document.querySelector('.hero__bg');
+    if (heroBg) {
+      gsap.to(heroBg, { y:100, ease:'none',
+        scrollTrigger:{ trigger:'.hero', start:'top top', end:'bottom top', scrub:true }
+      });
+    }
+
+    document.querySelectorAll('.svc-hero__bg').forEach(bg => {
+      gsap.to(bg, { y:70, ease:'none',
+        scrollTrigger:{ trigger:bg.parentElement, start:'top bottom', end:'bottom top', scrub:true }
+      });
+    });
+  }
+
+  (document.readyState === 'loading')
+    ? document.addEventListener('DOMContentLoaded', init)
+    : init();
+})();
+</script>
+
+<!-- 4. Carrossel de testemunhos -->
+<script>
+(function CarouselModule(){
+  const track = document.getElementById('carouselTrack');
+  const dots  = document.querySelectorAll('.carousel-dot');
+  const prev  = document.getElementById('prevBtn');
+  const next  = document.getElementById('nextBtn');
+  const TOTAL = 6;
+  let current = 0;
+  let timer;
+
+  function slideWidth() {
+    const w = window.innerWidth;
+    if (w <= 640) return 100;
+    if (w <= 960) return 50;
+    return 100 / 3;
+  }
+
+  function goTo(i) {
+    current = ((i % TOTAL) + TOTAL) % TOTAL;
+    track.style.transform = `translateX(-${current * slideWidth()}%)`;
+    dots.forEach((d,idx) => {
+      d.classList.toggle('active', idx === current);
+      d.setAttribute('aria-selected', String(idx === current));
+    });
+  }
+
+  function resetTimer() { clearInterval(timer); timer = setInterval(() => goTo(current+1), 5200); }
+
+  prev.addEventListener('click', () => { goTo(current-1); resetTimer(); });
+  next.addEventListener('click', () => { goTo(current+1); resetTimer(); });
+  dots.forEach((d,i) => d.addEventListener('click', () => { goTo(i); resetTimer(); }));
+  window.addEventListener('resize', () => goTo(current));
+
+  resetTimer();
+})();
+</script>
+
+<!-- 5. Formulário com Formspree - MELHORADO -->
+<script>
+(function FormModule(){
+  const form = document.getElementById('contactForm');
+  const submitBtn = document.getElementById('submitBtn');
+  const successMessage = document.getElementById('successMessage');
+  
+  if (!form || !submitBtn) return;
+
+  form.addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const originalHTML = submitBtn.innerHTML;
+    const originalBg = submitBtn.style.background;
+    
+    // Estado de envio
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+    submitBtn.disabled = true;
+    submitBtn.style.background = '#1976D2';
+
+    try {
+      const formData = new FormData(form);
+      const response = await fetch(form.action, {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      if (response.ok) {
+        // SUCESSO - Mostrar mensagem e limpar formulário
+        submitBtn.innerHTML = '<i class="fas fa-check"></i> Enviado com sucesso!';
+        submitBtn.style.background = '#2ecc71';
+        
+        // Mostrar mensagem de sucesso
+        successMessage.classList.add('show');
+        
+        // Limpar formulário
+        form.reset();
+        
+        // Scroll suave para a mensagem de sucesso
+        successMessage.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        
+        // Restaurar botão após 5 segundos
+        setTimeout(() => {
+          submitBtn.innerHTML = originalHTML;
+          submitBtn.style.background = originalBg;
+          submitBtn.disabled = false;
+          // Esconder mensagem de sucesso após um tempo
+          setTimeout(() => {
+            successMessage.classList.remove('show');
+          }, 8000);
+        }, 3000);
+        
+      } else {
+        // ERRO
+        const data = await response.json();
+        submitBtn.innerHTML = '<i class="fas fa-times"></i> Erro ao enviar';
+        submitBtn.style.background = '#e74c3c';
+        
+        console.error('Form submission error:', data);
+        
+        setTimeout(() => {
+          submitBtn.innerHTML = originalHTML;
+          submitBtn.style.background = originalBg;
+          submitBtn.disabled = false;
+        }, 3000);
+      }
+    } catch (error) {
+      // ERRO DE REDE
+      console.error('Network error:', error);
+      submitBtn.innerHTML = '<i class="fas fa-exclamation-triangle"></i> Erro de conexão';
+      submitBtn.style.background = '#e74c3c';
+      
+      setTimeout(() => {
+        submitBtn.innerHTML = originalHTML;
+        submitBtn.style.background = originalBg;
+        submitBtn.disabled = false;
+      }, 3000);
+    }
+  });
+})();
+</script>
+
+</body>
+</html>
